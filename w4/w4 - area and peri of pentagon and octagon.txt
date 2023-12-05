@@ -1,0 +1,27 @@
+Octagon
+area = 2.0 *(1.0 + Math.sqrt(2)) * Math.pow(side, 2);
+perimeter = numberOfSides * side;
+
+
+Pentagon
+area = 0.25 * Math.sqrt(5*(5+2 * Math.sqrt(5))) * Math.pow(side, 2);
+perimeter = numberOfSides * side;
+
+
+https://www.mathsisfun.com/shape.html
+
+A polygon is a 2D shape with straight sides.
+To be a regular polygon all the sides and angles must be the same:
+
+		Shape <<Interface>>
+
+			^
+			|
+
+	Regular polygon	<<abstract>>	- common behavior perimeter
+
+
+		^			^
+		|			|
+
+		Pentagon		Octagon
