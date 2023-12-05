@@ -1,0 +1,15 @@
+Encapsulation
+	It bundles the collection of data with its associated behaviours in to a single unit which is group class.
+	Now you can create an object of this group class and reuse the collection along with behaviours. 
+
+Hides logic - which outsiders/consumers do not need to know about
+	When we create an object of the group class we do not know what kind of a collection it uses internally. It can be an array, array list,
+		Linked list ...ect
+	We do not know how it performs the complex logic because those are inside the methods.
+
+Testability
+	You can isolate the group class and test it for collection related behaviours.
+
+Security
+	Internal state of the group class object is usually private. So, direct manipulation of the data is not allowed and we can be control access of data using visibility modifiers and methods.
+
