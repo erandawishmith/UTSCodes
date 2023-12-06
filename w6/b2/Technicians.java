@@ -1,12 +1,10 @@
 public class Technicians extends Records {
     @Override
-    public Technician find(int id)
-    {
-        return (Technician)super.find(id);
+    public Technician find(int id) {
+        return (Technician) super.find(id);
     }
 
-    public void add()
-    {
+    public void add() {
         System.out.println("Add ");
         Technician technician = new Technician(++id,
                 In.readName("Name"),
@@ -17,17 +15,10 @@ public class Technicians extends Records {
     }
 
     @Override
-    public String toString()
-    {
-        return "test\n" +  super.toString();
+    public String toString() {
+        return "test\n" + super.toString();
     }
 
-//    public Service updateService(Service service){
-//        super.records.set((service.id) -1 , service);
-//        return (Service)super.find(id-1);
-//
-//    }
-//
     public void deleteTechnician(int id) {
         Technician technicianToDelete = find(id);
 

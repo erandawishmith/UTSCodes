@@ -1,19 +1,16 @@
-public class GladiatorPrime {
+public class ServiceStation {
     private final char YES = 'Y';
 
-    // group class objecta as attributes
-    private Customers customers = new Customers();
-    private StreamedMovies streamedMovies = new StreamedMovies();
     private Services servicesList = new Services();
 
     private Technicians techniciansList = new Technicians();
 
-    public GladiatorPrime() {
+    public ServiceStation() {
         menu();
     }
 
     public static void main(String[] args) {
-        new GladiatorPrime();
+        new ServiceStation();
     }
 
     private void menu() {
@@ -51,11 +48,6 @@ public class GladiatorPrime {
     }
 
 
-    private void addMovie() {
-        streamedMovies.add();
-        menu();
-    }
-
     private void addService() {
         servicesList.add();
         menu();
@@ -66,60 +58,12 @@ public class GladiatorPrime {
         menu();
     }
 
-    private void addCustomer() {
-        customers.add();
-        menu();
+    private char editAction() {
+        System.out.println("Please enter your choice (S,T): ");
+        System.out.println("S:Service");
+        System.out.println("T:Technician");
+        return In.nextUpperChar();
     }
-
-    // Programming by contract
-    // Client performs validations and calls supplier only if the validations are
-    // successfull
-    private void rent() {
-        System.out.println("Rent Movie");
-        int customerId = In.readInt("customer id");
-        Customer customer = customers.find(customerId);
-        if (customer == null) {
-            System.out.println("No customer with such Id");
-        } else {
-            int movieId = In.readInt("movie id");
-            StreamedMovie movie = streamedMovies.find(movieId);
-            if (movie == null)
-                System.out.println("No movie with such Id");
-            else if (movie.getPrice() > customer.getBalance())
-                System.out.println("Not enough credit");
-            else
-                customer.rent(movie);
-        }
-        menu();
-    }
-
-//    private void editService(){
-//        int id = In.readInt("Service id");
-//        Service service = servicesList.find(id);
-//        System.out.println(service.toString());
-//
-////        String name = In.readName("Name");
-////        String Model = In.readName("Model");
-////        String Date = In.readName("Date");
-////        String Type = In.readName("Type");
-//
-//        Service newService1 = new Service(id,
-//                In.readName("Name"),
-//                In.readName("Model"),
-//                In.readName("Date"),
-//                In.readName("Type"));
-//
-//        Service newService = servicesList.updateService(newService1);
-//        System.out.println(newService.toString());
-//        menu();
-//
-//    }
-private char editAction() {
-    System.out.println("Please enter your choice (S,T): ");
-    System.out.println("S:Service");
-    System.out.println("T:Technician");
-    return In.nextUpperChar();
-}
 
 
     private void edit() {
@@ -148,20 +92,16 @@ private char editAction() {
                     In.readName("Date"),
                     In.readName("Type"));
 
-            Service updatedService = servicesList.updateService(id-1, newService);
+            Service updatedService = servicesList.updateService(id - 1, newService);
             System.out.println("updated successfully");
-//            if (updatedService != null) {
-//                System.out.println("Service with ID " + id + " updated successfully:");
-//                System.out.println(updatedService.toString());
-//            } else {
-//                System.out.println("Failed to update service with ID " + id);
-//            }
+
         } else {
             System.out.println("Service not found with ID " + id);
         }
 
         menu();
     }
+
     private void editTechnician() {
         int id = In.readInt("Enter Technician ID to edit: ");
         Technician technician = techniciansList.find(id);
@@ -175,14 +115,9 @@ private char editAction() {
                     In.readName("Contact Number"),
                     In.readName("Level"));
 
-            Technician updatedTechnician = techniciansList.updateTechnician(id-1, newTechnician);
+            Technician updatedTechnician = techniciansList.updateTechnician(id - 1, newTechnician);
             System.out.println("updated successfully");
-//            if (updatedService != null) {
-//                System.out.println("Service with ID " + id + " updated successfully:");
-//                System.out.println(updatedService.toString());
-//            } else {
-//                System.out.println("Failed to update service with ID " + id);
-//            }
+
         } else {
             System.out.println("Technician not found with ID " + id);
         }
@@ -196,7 +131,7 @@ private char editAction() {
     }
 
     private void delete() {
-        switch (readDeleteAction()){
+        switch (readDeleteAction()) {
             case 'S':
                 deleteService();
                 break;
@@ -217,13 +152,15 @@ private char editAction() {
         techniciansList.deleteTechnician(id);
         menu();
     }
-//    char action = readAction();
+
+    //    char action = readAction();
     private char readReportAction() {
         System.out.println("Please enter your choice (S,T): ");
         return In.nextUpperChar();
     }
+
     private void report() {
-        switch (readReportAction()){
+        switch (readReportAction()) {
             case 'S':
                 servicesList.show();
                 break;
