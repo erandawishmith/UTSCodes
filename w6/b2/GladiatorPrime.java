@@ -6,6 +6,8 @@ public class GladiatorPrime {
     private StreamedMovies streamedMovies = new StreamedMovies();
     private Services servicesList = new Services();
 
+    private Technicians techniciansList = new Technicians();
+
     public GladiatorPrime() {
         menu();
     }
@@ -20,11 +22,11 @@ public class GladiatorPrime {
             case 'M':
                 addService();
                 break;
-            case 'C':
-                addCustomer();
+            case 'T':
+                addTechnician();
                 break;
             case 'E':
-                editService();
+                edit();
                 break;
             case 'S':
                 report();
@@ -36,7 +38,7 @@ public class GladiatorPrime {
                 help();
                 break;
             case 'D':
-                deleteService();
+                delete();
                 break;
             default:
                 error();
@@ -44,9 +46,10 @@ public class GladiatorPrime {
     }
 
     private char readAction() {
-        System.out.println("Please enter your choice (M, C, E, S, X, D, ?): ");
+        System.out.println("Please enter your choice (M, T, E, S, X, D, ?): ");
         return In.nextUpperChar();
     }
+
 
     private void addMovie() {
         streamedMovies.add();
@@ -55,6 +58,11 @@ public class GladiatorPrime {
 
     private void addService() {
         servicesList.add();
+        menu();
+    }
+
+    private void addTechnician() {
+        techniciansList.add();
         menu();
     }
 
@@ -85,26 +93,117 @@ public class GladiatorPrime {
         menu();
     }
 
-    private void editService(){
-        int id = In.readInt("Service id");
+//    private void editService(){
+//        int id = In.readInt("Service id");
+//        Service service = servicesList.find(id);
+//        System.out.println(service.toString());
+//
+////        String name = In.readName("Name");
+////        String Model = In.readName("Model");
+////        String Date = In.readName("Date");
+////        String Type = In.readName("Type");
+//
+//        Service newService1 = new Service(id,
+//                In.readName("Name"),
+//                In.readName("Model"),
+//                In.readName("Date"),
+//                In.readName("Type"));
+//
+//        Service newService = servicesList.updateService(newService1);
+//        System.out.println(newService.toString());
+//        menu();
+//
+//    }
+private char editAction() {
+    System.out.println("Please enter your choice (S,T): ");
+    System.out.println("S:Service");
+    System.out.println("T:Technician");
+    return In.nextUpperChar();
+}
+
+
+    private void edit() {
+        switch (editAction()) {
+            case 'S':
+                editService();
+                break;
+            case 'T':
+                editTechnician();
+                break;
+        }
+    }
+
+
+    private void editService() {
+        int id = In.readInt("Enter Service ID to edit: ");
         Service service = servicesList.find(id);
-        System.out.println(service.toString());
 
-//        String name = In.readName("Name");
-//        String Model = In.readName("Model");
-//        String Date = In.readName("Date");
-//        String Type = In.readName("Type");
+        if (service != null) {
+            System.out.println("Existing service details:");
+            System.out.println(service.toString());
 
-        Service newService1 = new Service(id,
-                In.readName("Name"),
-                In.readName("Model"),
-                In.readName("Date"),
-                In.readName("Type"));
+            Service newService = new Service(id,
+                    In.readName("Name"),
+                    In.readName("Model"),
+                    In.readName("Date"),
+                    In.readName("Type"));
 
-        Service newService = servicesList.updateService(newService1);
-        System.out.println(newService.toString());
+            Service updatedService = servicesList.updateService(id-1, newService);
+            System.out.println("updated successfully");
+//            if (updatedService != null) {
+//                System.out.println("Service with ID " + id + " updated successfully:");
+//                System.out.println(updatedService.toString());
+//            } else {
+//                System.out.println("Failed to update service with ID " + id);
+//            }
+        } else {
+            System.out.println("Service not found with ID " + id);
+        }
+
         menu();
+    }
+    private void editTechnician() {
+        int id = In.readInt("Enter Technician ID to edit: ");
+        Technician technician = techniciansList.find(id);
 
+        if (technician != null) {
+            System.out.println("Existing Technician details:");
+            System.out.println(technician.toString());
+
+            Technician newTechnician = new Technician(id,
+                    In.readName("Name"),
+                    In.readName("Contact Number"),
+                    In.readName("Level"));
+
+            Technician updatedTechnician = techniciansList.updateTechnician(id-1, newTechnician);
+            System.out.println("updated successfully");
+//            if (updatedService != null) {
+//                System.out.println("Service with ID " + id + " updated successfully:");
+//                System.out.println(updatedService.toString());
+//            } else {
+//                System.out.println("Failed to update service with ID " + id);
+//            }
+        } else {
+            System.out.println("Technician not found with ID " + id);
+        }
+
+        menu();
+    }
+
+    private char readDeleteAction() {
+        System.out.println("Please enter your choice (S,T): ");
+        return In.nextUpperChar();
+    }
+
+    private void delete() {
+        switch (readDeleteAction()){
+            case 'S':
+                deleteService();
+                break;
+            case 'T':
+                deleteTechnician();
+                break;
+        }
     }
 
     private void deleteService() {
@@ -113,9 +212,24 @@ public class GladiatorPrime {
         menu();
     }
 
+    private void deleteTechnician() {
+        int id = In.readInt("Enter technician ID to delete: ");
+        techniciansList.deleteTechnician(id);
+        menu();
+    }
+//    char action = readAction();
+    private char readReportAction() {
+        System.out.println("Please enter your choice (S,T): ");
+        return In.nextUpperChar();
+    }
     private void report() {
-        //customers.show();
-        servicesList.show();
+        switch (readReportAction()){
+            case 'S':
+                servicesList.show();
+                break;
+            case 'T':
+                techniciansList.show();
+        }
         menu();
     }
 
