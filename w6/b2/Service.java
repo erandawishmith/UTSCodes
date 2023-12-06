@@ -12,6 +12,10 @@ public class Service extends Record{
         this.date = date;
         this.serviceType = serviceType;
     }
+//    public int getId() {
+//        return id;
+//    }
+
 
     @Override
     public String toString()

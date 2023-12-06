@@ -6,6 +6,7 @@ public class Services extends Records{
         return (Service)super.find(id);
     }
 
+
     public void add()
     {
         System.out.println("Add ");
@@ -24,11 +25,11 @@ public class Services extends Records{
         return "test\n" +  super.toString();
     }
 
-    public Service updateService(Service service){
-        super.records.set((service.id) -1 , service);
-        return (Service)super.find(id-1);
-
-    }
+//    public Service updateService(Service service){
+//        super.records.set((service.id) -1 , service);
+//        return (Service)super.find(id-1);
+//
+//    }
 
     public void deleteService(int id) {
         Service serviceToDelete = find(id);
@@ -41,21 +42,21 @@ public class Services extends Records{
         }
     }
 
-//    public Service updateService(Service service) {
-//        // Check if the records list is not empty
-//        if (!super.records.isEmpty()) {
-//            // Check if the provided service has a valid ID
-//            if (service.id >= 0 && service.id < super.records.size()) {
-//                super.records.set(service.id, service);
-//                return (Service) super.find(service.id);
-//            } else {
-//                System.out.println("Invalid service ID for update");
-//            }
-//        } else {
-//            System.out.println("No services available for update");
-//        }
-//
-//        return null;
-//    }
+    public Service updateService(int id, Service newService) {
+        // Check if the records list is not empty
+        if (!super.records.isEmpty()) {
+            // Check if the provided service has a valid ID
+            if (id >= 0 && id < super.records.size()) {
+                super.records.set(id, newService);
+                return (Service) super.find(id);
+            } else {
+                System.out.println("Invalid service ID for update");
+            }
+        } else {
+            System.out.println("No services available for update");
+        }
+
+        return null;
+    }
 
 }
