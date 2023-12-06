@@ -1,95 +1,135 @@
-public class GladiatorPrime
-{
+public class GladiatorPrime {
     private final char YES = 'Y';
-    
+
     // group class objecta as attributes
     private Customers customers = new Customers();
     private StreamedMovies streamedMovies = new StreamedMovies();
+    private Services servicesList = new Services();
 
-    public GladiatorPrime()
-    {
+    public GladiatorPrime() {
         menu();
     }
 
-    private void menu()
-    {
+    public static void main(String[] args) {
+        new GladiatorPrime();
+    }
+
+    private void menu() {
         char action = readAction();
-        switch (action)
-        {
-            case 'M': addMovie(); break;
-            case 'C': addCustomer(); break;
-            case 'R': rent(); break;
-            case 'S': report(); break;
-            case 'X': exit(); break;
-            case '?': help(); break;
-            default: error();
+        switch (action) {
+            case 'M':
+                addService();
+                break;
+            case 'C':
+                addCustomer();
+                break;
+            case 'E':
+                editService();
+                break;
+            case 'S':
+                report();
+                break;
+            case 'X':
+                exit();
+                break;
+            case '?':
+                help();
+                break;
+            case 'D':
+                deleteService();
+                break;
+            default:
+                error();
         }
     }
 
-    private char readAction()
-    {
-        System.out.println("Please enter your choice (M, C, R, S, X, ?): ");
+    private char readAction() {
+        System.out.println("Please enter your choice (M, C, E, S, X, D, ?): ");
         return In.nextUpperChar();
-    } 
-    
-    private void addMovie()
-    {
+    }
+
+    private void addMovie() {
         streamedMovies.add();
         menu();
     }
-    
-    private void addCustomer()
-    {
+
+    private void addService() {
+        servicesList.add();
+        menu();
+    }
+
+    private void addCustomer() {
         customers.add();
         menu();
     }
-    
+
     // Programming by contract
-    // Client performs validations and calls supplier only if the validations are successfull
-    private void rent()
-    {
+    // Client performs validations and calls supplier only if the validations are
+    // successfull
+    private void rent() {
         System.out.println("Rent Movie");
         int customerId = In.readInt("customer id");
         Customer customer = customers.find(customerId);
-        if (customer == null)
-        {
+        if (customer == null) {
             System.out.println("No customer with such Id");
-        }
-        else
-        {
+        } else {
             int movieId = In.readInt("movie id");
             StreamedMovie movie = streamedMovies.find(movieId);
             if (movie == null)
                 System.out.println("No movie with such Id");
             else if (movie.getPrice() > customer.getBalance())
-                System.out.println("Not enough credit");                
+                System.out.println("Not enough credit");
             else
                 customer.rent(movie);
         }
         menu();
     }
-    
-    private void report()
-    {
-        customers.show();
-        streamedMovies.show();
+
+    private void editService(){
+        int id = In.readInt("Service id");
+        Service service = servicesList.find(id);
+        System.out.println(service.toString());
+
+//        String name = In.readName("Name");
+//        String Model = In.readName("Model");
+//        String Date = In.readName("Date");
+//        String Type = In.readName("Type");
+
+        Service newService1 = new Service(id,
+                In.readName("Name"),
+                In.readName("Model"),
+                In.readName("Date"),
+                In.readName("Type"));
+
+        Service newService = servicesList.updateService(newService1);
+        System.out.println(newService.toString());
+        menu();
+
+    }
+
+    private void deleteService() {
+        int id = In.readInt("Enter service ID to delete: ");
+        servicesList.deleteService(id);
         menu();
     }
 
-    private void exit()
-    {
+    private void report() {
+        //customers.show();
+        servicesList.show();
+        menu();
+    }
+
+    private void exit() {
         if (!confirm())
             menu();
     }
 
-    private boolean confirm()
-    {
+    private boolean confirm() {
         System.out.println("Are you sure (y/n)?: ");
         return In.nextUpperChar() == YES;
     }
 
-    private void help()
-    {
+    private void help() {
         System.out.println("Welcome to my simple menu; enter");
         System.out.println("M for adding a movie");
         System.out.println("C for adding a customer");
@@ -99,8 +139,7 @@ public class GladiatorPrime
         menu();
     }
 
-    private void error()
-    {
+    private void error() {
         System.out.println("No action found. Try again");
         menu();
     }
