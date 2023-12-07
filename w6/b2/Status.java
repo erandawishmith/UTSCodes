@@ -1,5 +1,8 @@
 public enum Status
 {
-    FOR_RENT, UNAVAILABLE, EXPIRED
+    Booked,
+    Started,
+    Processing,
+    Finished
 }
 

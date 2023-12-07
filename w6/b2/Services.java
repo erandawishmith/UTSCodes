@@ -14,7 +14,8 @@ public class Services extends Records{
                 In.readName("Name"),
                 In.readName("Model"),
                 In.readName("Date"),
-                getServiceTypeFromUser());
+                getServiceTypeFromUser(),
+                Status.Booked);
         super.add(service);
         System.out.println(service.toString() + " added");
     }
@@ -31,7 +32,8 @@ public class Services extends Records{
                     In.readName("Name"),
                     In.readName("Model"),
                     In.readName("Date"),
-                    getServiceTypeFromUser());
+                    getServiceTypeFromUser(),
+                    getStatusFromUser());
 
             Service updatedService = updateService(id - 1, newService);
             System.out.println("updated successfully");
@@ -58,6 +60,21 @@ public class Services extends Records{
         } else {
             System.out.println("Invalid service type choice. Defaulting to BASIC.");
             return ServiceType.BASIC;
+        }
+    }
+
+    private Status getStatusFromUser() {
+        System.out.println("Change Status:");
+        for (Status type : Status.values()) {
+            System.out.println(type.ordinal() + 1 + ". " + type.name());
+        }
+        int typeChoice = In.readInt("Enter the number to change the Status") - 1;
+
+        if (typeChoice >= 0 && typeChoice < Status.values().length) {
+            return Status.values()[typeChoice];
+        } else {
+            System.out.println("Invalid service type choice. Defaulting to BASIC.");
+            return Status.Booked;
         }
     }
 
