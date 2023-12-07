@@ -79,49 +79,12 @@ public class ServiceStation {
 
 
     private void editService() {
-        int id = In.readInt("Enter Service ID to edit: ");
-        Service service = servicesList.find(id);
-
-        if (service != null) {
-            System.out.println("Existing service details:");
-            System.out.println(service.toString());
-
-            Service newService = new Service(id,
-                    In.readName("Name"),
-                    In.readName("Model"),
-                    In.readName("Date"),
-                    In.readName("Type"));
-
-            Service updatedService = servicesList.updateService(id - 1, newService);
-            System.out.println("updated successfully");
-
-        } else {
-            System.out.println("Service not found with ID " + id);
-        }
-
-        menu();
+        servicesList.edit();
+                menu();
     }
 
     private void editTechnician() {
-        int id = In.readInt("Enter Technician ID to edit: ");
-        Technician technician = techniciansList.find(id);
-
-        if (technician != null) {
-            System.out.println("Existing Technician details:");
-            System.out.println(technician.toString());
-
-            Technician newTechnician = new Technician(id,
-                    In.readName("Name"),
-                    In.readName("Contact Number"),
-                    In.readName("Level"));
-
-            Technician updatedTechnician = techniciansList.updateTechnician(id - 1, newTechnician);
-            System.out.println("updated successfully");
-
-        } else {
-            System.out.println("Technician not found with ID " + id);
-        }
-
+        techniciansList.edit();
         menu();
     }
 
@@ -142,14 +105,12 @@ public class ServiceStation {
     }
 
     private void deleteService() {
-        int id = In.readInt("Enter service ID to delete: ");
-        servicesList.deleteService(id);
+        servicesList.delete();
         menu();
     }
 
     private void deleteTechnician() {
-        int id = In.readInt("Enter technician ID to delete: ");
-        techniciansList.deleteTechnician(id);
+        techniciansList.delete();
         menu();
     }
 

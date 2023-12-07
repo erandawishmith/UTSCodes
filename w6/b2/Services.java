@@ -14,9 +14,51 @@ public class Services extends Records{
                 In.readName("Name"),
                 In.readName("Model"),
                 In.readName("Date"),
-                In.readName("Type"));
+                getServiceTypeFromUser());
         super.add(service);
         System.out.println(service.toString() + " added");
+    }
+
+    public void edit() {
+        int id = In.readInt("Enter Service ID to edit: ");
+        Service service = find(id);
+
+        if (service != null) {
+            System.out.println("Existing service details:");
+            System.out.println(service.toString());
+
+            Service newService = new Service(id,
+                    In.readName("Name"),
+                    In.readName("Model"),
+                    In.readName("Date"),
+                    getServiceTypeFromUser());
+
+            Service updatedService = updateService(id - 1, newService);
+            System.out.println("updated successfully");
+
+        } else {
+            System.out.println("Service not found with ID " + id);
+        }
+    }
+
+    public void delete() {
+        int id = In.readInt("Enter service ID to delete: ");
+        deleteService(id);
+    }
+
+    private ServiceType getServiceTypeFromUser() {
+        System.out.println("Choose service type:");
+        for (ServiceType type : ServiceType.values()) {
+            System.out.println(type.ordinal() + 1 + ". " + type.name());
+        }
+        int typeChoice = In.readInt("Enter the number for the service type") - 1;
+
+        if (typeChoice >= 0 && typeChoice < ServiceType.values().length) {
+            return ServiceType.values()[typeChoice];
+        } else {
+            System.out.println("Invalid service type choice. Defaulting to BASIC.");
+            return ServiceType.BASIC;
+        }
     }
 
     @Override

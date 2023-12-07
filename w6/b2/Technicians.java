@@ -14,6 +14,32 @@ public class Technicians extends Records {
         System.out.println(technician.toString() + " added");
     }
 
+    public void edit() {
+        int id = In.readInt("Enter Technician ID to edit: ");
+        Technician technician = find(id);
+
+        if (technician != null) {
+            System.out.println("Existing Technician details:");
+            System.out.println(technician.toString());
+
+            Technician newTechnician = new Technician(id,
+                    In.readName("Name"),
+                    In.readName("Contact Number"),
+                    In.readName("Level"));
+
+            Technician updatedTechnician = updateTechnician(id - 1, newTechnician);
+            System.out.println("updated successfully");
+
+        } else {
+            System.out.println("Technician not found with ID " + id);
+        }
+    }
+
+    public void delete() {
+        int id = In.readInt("Enter technician ID to delete: ");
+        deleteTechnician(id);
+    }
+
     @Override
     public String toString() {
         return "test\n" + super.toString();
