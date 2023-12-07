@@ -4,9 +4,9 @@ public class Service extends Record{
 
     private String model;
     private String date;
-    private String serviceType;
+    private ServiceType serviceType;
 
-    public Service(int id, String name, String model, String date, String serviceType) {
+    public Service(int id, String name, String model, String date, ServiceType serviceType) {
         super(id, name);
         this.model = model;
         this.date = date;

@@ -1,12 +1,10 @@
 public class Technicians extends Records {
     @Override
-    public Technician find(int id)
-    {
-        return (Technician)super.find(id);
+    public Technician find(int id) {
+        return (Technician) super.find(id);
     }
 
-    public void add()
-    {
+    public void add() {
         System.out.println("Add ");
         Technician technician = new Technician(++id,
                 In.readName("Name"),
@@ -16,18 +14,37 @@ public class Technicians extends Records {
         System.out.println(technician.toString() + " added");
     }
 
-    @Override
-    public String toString()
-    {
-        return "test\n" +  super.toString();
+    public void edit() {
+        int id = In.readInt("Enter Technician ID to edit: ");
+        Technician technician = find(id);
+
+        if (technician != null) {
+            System.out.println("Existing Technician details:");
+            System.out.println(technician.toString());
+
+            Technician newTechnician = new Technician(id,
+                    In.readName("Name"),
+                    In.readName("Contact Number"),
+                    In.readName("Level"));
+
+            Technician updatedTechnician = updateTechnician(id - 1, newTechnician);
+            System.out.println("updated successfully");
+
+        } else {
+            System.out.println("Technician not found with ID " + id);
+        }
     }
 
-//    public Service updateService(Service service){
-//        super.records.set((service.id) -1 , service);
-//        return (Service)super.find(id-1);
-//
-//    }
-//
+    public void delete() {
+        int id = In.readInt("Enter technician ID to delete: ");
+        deleteTechnician(id);
+    }
+
+    @Override
+    public String toString() {
+        return "test\n" + super.toString();
+    }
+
     public void deleteTechnician(int id) {
         Technician technicianToDelete = find(id);
 
